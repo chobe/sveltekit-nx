@@ -91,7 +91,7 @@ importers:
         specifier: 1.3.1
         version: 1.3.1(@types/node@20.11.27)
 
-  apps/preescolarsteps.com: {}
+  apps/website: {}
 
   packages/shared-ui:
     dependencies:
