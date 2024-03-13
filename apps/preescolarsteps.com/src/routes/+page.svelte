@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {Header } from 'shared-ui'
+  import { Header } from 'shared-ui';
 </script>
 
 <Header />

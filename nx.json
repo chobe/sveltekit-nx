@@ -1,26 +1,44 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "noMarkdown": ["!{projectRoot}/**/*.md"]
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/**/*.md"
+    ],
+    "sharedGlobals": []
   },
   "targetDefaults": {
     "build": {
-      "inputs": ["noMarkdown", "^noMarkdown"],
       "dependsOn": ["^build"],
+      "inputs": ["production", "^production"],
       "cache": true
     },
     "dev": {
       "dependsOn": ["^build"],
-      "cache": true
-    },
-    "test": {
-      "inputs": ["noMarkdown", "^noMarkdown"],
+      "inputs": ["production", "^production"],
       "cache": true
     },
     "check": {
       "inputs": ["noMarkdown", "^noMarkdown"],
       "cache": true
+    },
+    "lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json", "{workspaceRoot}/.eslintignore"],
+      "cache": true
+    },
+    "@nx/vite:test": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "cache": true
+    },
+    "e2e": {
+      "inputs": ["default", "^production"],
+      "cache": true
     }
   }
 }
-  
